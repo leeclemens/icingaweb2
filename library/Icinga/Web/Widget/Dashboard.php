@@ -34,14 +34,14 @@ use Icinga\Application\Config as IcingaConfig;
 use Icinga\Exception\ProgrammingError;
 use Icinga\Web\Widget\AbstractWidget;
 use Icinga\Web\Widget\Dashboard\Pane;
-use Icinga\Web\Widget\Dashboard\Component as DashboardComponent;
+use Icinga\Web\Widget\Dashboard\Dashlet;
 use Icinga\Web\Url;
 
 /**
  * Dashboards display multiple views on a single page
  *
  * The terminology is as follows:
- * - Component:     A single view showing a specific url
+ * - Dashlet:     A single view showing a specific url
  * - Pane:          Aggregates one or more components on one page, displays it's title as a tab
  * - Dashboard:     Shows all panes
  *
@@ -149,7 +149,7 @@ class Dashboard extends AbstractWidget
      * @TODO:   Should only allow component objects to be added directly as soon as we store more information
      *
      * @param string $pane                  The pane to add the component to
-     * @param Component|string $component   The component to add or the title of the newly created component
+     * @param Dashlet|string $component   The component to add or the title of the newly created component
      * @param $url                          The url to use for the component
      *
      * @return self
@@ -192,7 +192,7 @@ class Dashboard extends AbstractWidget
      * Remove a component $component from the given pane
      *
      * @param string $pane                      The pane to remove the component from
-     * @param Component|string $component       The component to remove or it's name
+     * @param Dashlet|string $component       The component to remove or it's name
      *
      * @return self
      */
@@ -337,7 +337,7 @@ class Dashboard extends AbstractWidget
             } else {
                 list($paneName, $title) = explode('.', $key, 2);
                 $pane = $this->getPane($paneName);
-                $pane->addComponent(DashboardComponent::fromIni($title, $item, $pane));
+                $pane->addComponent(Dashlet::fromIni($title, $item, $pane));
             }
         }
     }

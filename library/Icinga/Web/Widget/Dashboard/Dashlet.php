@@ -45,10 +45,10 @@ use Exception;
  * This is the element displaying a specific view in icinga2web
  *
  */
-class Component extends AbstractWidget
+class Dashlet extends AbstractWidget
 {
     /**
-     * The url of this Component
+     * The url of this Dashlet
      *
      * @var \Icinga\Web\Url
      */
@@ -86,7 +86,7 @@ EOD;
      *
      * @param string $title     The title to use for this component
      * @param Url|string $url   The url this component uses for displaying information
-     * @param Pane $pane        The pane this Component will be added to
+     * @param Pane $pane        The pane this Dashlet will be added to
      */
     public function __construct($title, $url, Pane $pane)
     {
@@ -212,13 +212,13 @@ EOD;
     }
 
     /**
-     * Create a @see Component instance from the given Zend config, using the provided title
+     * Create a @see Dashlet instance from the given Zend config, using the provided title
      *
      * @param $title                    The title for this component
      * @param Zend_Config $config       The configuration defining url, parameters, height, width, etc.
      * @param Pane $pane                The pane this component belongs to
      *
-     * @return Component                A newly created Component for use in the Dashboard
+     * @return Dashlet                A newly created Dashlet for use in the Dashboard
      */
     public static function fromIni($title, Zend_Config $config, Pane $pane)
     {
@@ -228,7 +228,7 @@ EOD;
         $parameters = $config->toArray();
         unset($parameters['url']); // otherwise there's an url = parameter in the Url
 
-        $cmp = new Component($title, Url::fromPath($url, $parameters), $pane);
+        $cmp = new Dashlet($title, Url::fromPath($url, $parameters), $pane);
         return $cmp;
     }
 }

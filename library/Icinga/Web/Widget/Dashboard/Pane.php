@@ -122,7 +122,7 @@ class Pane extends AbstractWidget
      *
      * @param string $title         The title of the component to return
      *
-     * @return Component            The component with the given title
+     * @return Dashlet            The component with the given title
      * @throws ProgrammingError     If the component doesn't exist
      */
     public function getComponent($title)
@@ -168,7 +168,7 @@ class Pane extends AbstractWidget
     /**
      * Add a component to this pane, optionally creating it if $component is a string
      *
-     * @param string|Component $component               The component object or title
+     * @param string|Dashlet $component               The component object or title
      *                                                  (if a new component will be created)
      * @param string|null $url                          An Url to be used when component is a string
      *
@@ -177,10 +177,10 @@ class Pane extends AbstractWidget
      */
     public function addComponent($component, $url = null)
     {
-        if ($component instanceof Component) {
+        if ($component instanceof Dashlet) {
             $this->components[$component->getTitle()] = $component;
         } elseif (is_string($component) && $url !== null) {
-             $this->components[$component] = new Component($component, $url, $this);
+             $this->components[$component] = new Dashlet($component, $url, $this);
         } else {
             throw new ConfigurationError('Invalid component added: ' . $component);
         }
@@ -194,9 +194,9 @@ class Pane extends AbstractWidget
      */
     public function toArray()
     {
-        $array = array($this->getName() => array('title' => $this->getTitle()));
+        $array = array('title' => $this->getTitle());
         foreach ($this->components as $title => $component) {
-            $array[$this->getName() . ".$title"] = $component->toArray();
+            $array[$title] = $component->toArray();
         }
 
         return $array;
