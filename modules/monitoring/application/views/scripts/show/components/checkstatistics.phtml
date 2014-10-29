@@ -20,7 +20,7 @@ if ($object->getType() === $object::TYPE_HOST) {
     <th><?= $this->translate('Last check') ?></th>
     <td data-base-target="_self">
         <?= $checkNowForm ?>
-        <?= $this->timeSince($object->last_check, true) ?>
+        <?= $this->timeSince($object->last_check, $this->translate('Last check was at %s')) ?>
     </td>
 </tr>
 <tr>
@@ -29,7 +29,7 @@ if ($object->getType() === $object::TYPE_HOST) {
       <a href="<?= $reschedule ?>">
           <?= $this->icon('reschedule_petrol.png') ?> <?= $this->translate('Reschedule') ?>
       </a>
-      <?= $this->timeUntil($object->next_check, true) ?>
+      <?= $this->timeUntil($object->next_check, $this->translate('Next check is at %s')) ?>
   </td>
 </tr>
 <?php if ($object->check_execution_time): ?>
