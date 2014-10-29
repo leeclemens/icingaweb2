@@ -46,7 +46,7 @@ foreach ($notifications as $notification):
   }
 ?>
   <tr class="state <?= $stateName ?>">
-    <td class="state" title="<?= $this->translate(strtoupper($stateName)) . $this->translate(' on ') . date('Y-m-d H:i:s', $notification->notification_start_time); ?>">
+    <td class="state" title="<?= $this->translate(strtoupper($stateName)) . $this->translate(' at ') . date('Y-m-d H:i:s', $notification->notification_start_time); ?>">
         <?= $this->dateTimeRenderer($notification->notification_start_time)->render(
                 $this->translate('on %s', 'datetime'),
                 $this->translate('at %s', 'time'),

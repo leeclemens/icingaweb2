@@ -28,7 +28,7 @@
       $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
     ?>
       <tr class="state <?= $stateName; ?><?= $downtime->is_in_effect ? ' handled' : ''; ?>">
-        <td class="state" title="<?= $stateTitle . $this->translate(' on ') . date('Y-m-d H:i:s', $downtimeDate); ?>">
+        <td class="state" title="<?= $stateTitle . $this->translate(' at ') . date('Y-m-d H:i:s', $downtimeDate); ?>">
           <strong><?= $stateTitle ?></strong>
           <br>
             <?=
@@ -36,7 +36,7 @@
                 $downtimeDate,
                 true
             )->render(
-                $this->translate('on %s', 'datetime'),
+                $this->translate('at %s', 'datetime'),
                 $this->translate('at %s', 'time'),
                 $this->translate('in %s', 'timespan')
             );
