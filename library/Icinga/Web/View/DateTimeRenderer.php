@@ -196,9 +196,8 @@ class DateTimeRenderer
         }
 
         return sprintf(
-            '<span class="%s" title="%s">%s</span>',
+            '<span class="%s">%s</span>',
             $css,
-            $this->dateTime->format('d.m.Y - H:i:s'),
             $format
         );
     }
