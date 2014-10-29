@@ -41,13 +41,13 @@
       }
     ?>
       <tr class="state invalid">
-        <td class="state" style="width: 12em;" title="<?= $this->escape($title) . $this->translate(' at ') . date('Y-m-d H:i:s', $comment->timestamp); ?>">
+        <td class="state" style="width: 12em;" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $this->escape($title), date('Y-m-d H:i:s', $comment->timestamp)); ?>">
           <?= $this->icon($icon . '.png', $tooltip) ?>
           <br>
           <strong><?= $this->escape($title); ?></strong>
           <br>
             <?= $this->dateTimeRenderer($comment->timestamp)->render(
-                $this->translate('on %s', 'datetime'),
+                $this->translate('at %s', 'datetime'),
                 $this->translate('at %s', 'time'),
                 $this->translate('%s ago', 'timespan')
             );

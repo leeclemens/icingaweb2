@@ -24,11 +24,11 @@
       } else {
           $stateName = strtolower($this->util()->getHostStateName($downtime->host_state));
       }
-      $stateTitle = $downtime->is_in_effect ? $this->translate('Expires') : $this->translate('Starts');
+      $stateTitle = $downtime->is_in_effect ? $this->translate('Expires', 'downtime') : $this->translate('Starts', 'downtime');
       $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
     ?>
       <tr class="state <?= $stateName; ?><?= $downtime->is_in_effect ? ' handled' : ''; ?>">
-        <td class="state" title="Downtime <?= $stateTitle . $this->translate(' at ') . date('Y-m-d H:i:s', $downtimeDate); ?>">
+      <td class="state" title="<?= sprintf($this->translate('Downtime %s at %s', 'datetime.title'), $stateTitle, date('Y-m-d H:i:s', $downtimeDate)); ?>">
           <strong><?= $stateTitle ?></strong>
           <br>
             <?=
