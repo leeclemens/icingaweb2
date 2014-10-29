@@ -41,12 +41,17 @@
       }
     ?>
       <tr class="state invalid">
-        <td class="state" style="width: 12em;">
+        <td class="state" style="width: 12em;" title="<?= $this->escape($title) . $this->translate(' on ') . date('Y-m-d H:i:s', $comment->timestamp); ?>">
           <?= $this->icon($icon . '.png', $tooltip) ?>
           <br>
           <strong><?= $this->escape($title); ?></strong>
           <br>
-          <?= $this->prefixedTimeSince($comment->timestamp); ?>
+            <?= $this->dateTimeRenderer($comment->timestamp)->render(
+                $this->translate('on %s', 'datetime'),
+                $this->translate('at %s', 'time'),
+                $this->translate('%s ago', 'timespan')
+            );
+            ?>
         </td>
         <td>
         <?php if ($comment->objecttype === 'service'): ?>

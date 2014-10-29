@@ -37,12 +37,12 @@ foreach ($object->downtimes as $downtime) {
     $form->populate(array('downtime_id' => $downtime->id));
 
     if ((bool) $downtime->is_in_effect) {
-        $state = 'in downtime since ' . $this->timeSince($downtime->start);
+        $state = 'in downtime since ' . $this->timeSince($downtime->start, true);
     } else {
         if ((bool) $downtime->is_fixed) {
-            $state = 'scheduled ' . $this->timeUntil($downtime->start);
+            $state = 'scheduled ' . $this->timeUntil($downtime->start, true);
         } else {
-            $state = 'scheduled flexible ' . $this->timeUntil($downtime->start);
+            $state = 'scheduled flexible ' . $this->timeUntil($downtime->start, true);
         }
     }
 

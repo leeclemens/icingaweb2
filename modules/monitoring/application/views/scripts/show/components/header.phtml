@@ -4,7 +4,7 @@
 <?php endif ?>
 <table class="objectstate">
   <tr class="state <?= $this->monitoringState($object, 'host') ?><?= $object->host_handled ? ' handled' : '' ?>">
-    <td class="state"<?= $showService ? '' : ' rowspan="2"' ?>>
+    <td class="state"<?= $showService ? '' : ' rowspan="2"' ?> title="<?= $this->translate($this->util()->getHostStateName($object->host_state)) . $this->translate(' on ') . date('Y-m-d H:i:s', $object->host_last_state_change); ?>">
       <strong><?= $this->translate($this->util()->getHostStateName($object->host_state)) ?></strong><br />
       <?= $this->prefixedTimeSince($object->host_last_state_change, true) ?>
     </td>
@@ -16,7 +16,7 @@
   </tr>
 <?php if ($showService): ?>
   <tr class="state <?= $this->monitoringState($object, 'service') ?><?= $object->service_handled ? ' handled' : '' ?>">
-    <td class="state">
+    <td class="state" title="<?= $this->translate($this->util()->getServiceStateName($object->service_state)) . $this->translate(' on ') . date('Y-m-d H:i:s', $object->service_last_state_change); ?>">
       <strong><?= $this->translate($this->util()->getServiceStateName($object->service_state)) ?></strong><br />
       <?= $this->prefixedTimeSince($object->service_last_state_change, true) ?>
     </td>

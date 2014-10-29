@@ -80,7 +80,7 @@
         }
       ?>
       <tr class="state <?= $stateName; ?>">
-        <td class="state">
+        <td class="state" title="<?= $this->translate($this->escape($title)) . $this->translate(' on ') . date('Y-m-d H:i:s', $event->timestamp); ?>">
           <strong><?= $this->escape($title); ?></strong>
           <br>
           <?= date('d.m. H:i', $event->timestamp); ?>
