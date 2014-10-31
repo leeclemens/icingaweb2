@@ -9,7 +9,7 @@ use Icinga\Web\Controller\ActionController;
 use Icinga\Form\Authentication\LoginForm;
 use Icinga\Authentication\AuthChain;
 use Icinga\Application\Config;
-use Icinga\Logger\Logger;
+use Icinga\Application\Logger;
 use Icinga\Exception\AuthenticationException;
 use Icinga\Exception\NotReadableError;
 use Icinga\Exception\ConfigurationError;
@@ -148,7 +148,6 @@ class AuthenticationController extends ActionController
         $isRemoteUser = $auth->getUser()->isRemoteUser();
         $auth->removeAuthorization();
         if ($isRemoteUser === true) {
-            $this->_helper->layout->setLayout('login');
             $this->_response->setHttpResponseCode(401);
         } else {
             $this->redirectToLogin();
