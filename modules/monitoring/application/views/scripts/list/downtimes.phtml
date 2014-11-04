@@ -1,3 +1,7 @@
+<?php
+use Icinga\Module\Monitoring\Object\Host;
+use Icinga\Module\Monitoring\Object\Service;
+?>
 <?php if (false === $this->compact): ?>
 <div class="controls">
   <?= $this->tabs->render($this); ?>
@@ -20,15 +24,30 @@
     <?php foreach ($downtimes as $downtime): ?>
     <?php
       if (isset($downtime->service)) {
-          $stateName = strtolower($this->util()->getServiceStateName($downtime->service_state));
+          $stateName = Service::getStateText($downtime->service_state, true);
       } else {
-          $stateName = strtolower($this->util()->getHostStateName($downtime->host_state));
+          $stateName = Host::getStateText($downtime->host_state, true);
       }
-      $stateTitle = $downtime->is_in_effect ? $this->translate('Expires', 'downtime') : $this->translate('Starts', 'downtime');
-      $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
+      if ($downtime->is_flexible == 1) {
+          if ((time() >= $downtime->start && time() <= $downtime->scheduled_end) && $downtime->is_in_effect == 0) {
+              $stateTitle = $this->translate('Flexible Downtime Expires');
+              $downtimeDate = $downtime->scheduled_end;
+          } else {
+              $stateTitle = $downtime->is_in_effect ? $this->translate('Flexible Downtime Expires') : $this->translate('Flexible Downtime Starts');
+              $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
+          }
+      } else {
+          if ((time() >= $downtime->start && time() <= $downtime->end) && $downtime->is_in_effect == 0) {
+              $stateTitle = $this->translate('Downtime Expires');
+              $downtimeDate = $downtime->end;
+          } else {
+              $stateTitle = $downtime->is_in_effect ? $this->translate('Downtime Expires') : $this->translate('Downtime Starts');
+              $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
+          }
+      }
     ?>
       <tr class="state <?= $stateName; ?><?= $downtime->is_in_effect ? ' handled' : ''; ?>">
-      <td class="state" title="<?= sprintf($this->translate('Downtime %s at %s', 'datetime.title'), $stateTitle, date('Y-m-d H:i:s', $downtimeDate)); ?>">
+        <td class="state" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $stateTitle, date('Y-m-d H:i:s', $downtimeDate)); ?>">
           <strong><?= $stateTitle ?></strong>
           <br>
             <?=
