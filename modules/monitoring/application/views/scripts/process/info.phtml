@@ -26,17 +26,28 @@ $cp = $this->checkPerformance()->create($this->checkperformance);
                 </tr>
                 <tr>
                     <th><?= $this->translate('Last Status Update'); ?></th>
-                    <td><?= $this->timeSince($this->programStatus->status_update_time) ?> ago</td>
+                    <td><?= $this->dateTimeRenderer($this->programStatus->status_update_time)->render(
+                        $this->translate('on %s', 'datetime'),
+                        $this->translate('at %s', 'time'),
+                        $this->translate('%s ago', 'timespan')
+                    ) ?></td>
                 </tr>
                 <tr>
                     <th><?= $this->translate('Last External Command Check'); ?></th>
-                    <td><?= $this->timeSince($this->programStatus->last_command_check) ?> ago</td>
+                    <td><?= $this->dateTimeRenderer($this->programStatus->last_command_check)->render(
+                        $this->translate('on %s', 'datetime'),
+                        $this->translate('at %s', 'time'),
+                        $this->translate('%s ago', 'timespan')
+                    ) ?></td>
                 </tr>
                 <tr>
                     <th><?= $this->translate('Last Log File Rotation'); ?></th>
                     <td><?= $this->programStatus->last_log_rotation
-                            ? $this->timeSince($this->programStatus->last_log_rotation)
-                            : $this->translate('N/A') ?></td>
+                            ? $this->dateTimeRenderer($this->programStatus->last_log_rotation)->render(
+                                $this->translate('on %s', 'datetime'),
+                                $this->translate('at %s', 'time'),
+                                $this->translate('%s ago', 'timespan')
+                            ) : $this->translate('N/A') ?></td>
                 </tr>
                 <tr>
                     <th><?= $this->translate('Global Service Event Handler'); ?></th>
@@ -55,10 +66,14 @@ $cp = $this->checkPerformance()->create($this->checkperformance);
             <?php if ((bool) $this->programStatus->is_currently_running === true): ?>
                 <div class="backend-running">
                     <?= sprintf(
-                        $this->translate('%s has been up and running with PID %d since %s'),
+                        $this->translate('%s has been up and running with PID %d %s'),
                         $this->backendName,
                         $this->programStatus->process_id,
-                        $this->timeSince($this->programStatus->program_start_time)) ?>
+                        $this->dateTimeRenderer($this->programStatus->program_start_time)->render(
+                            $this->translate('since %s', 'datetime'),
+                            $this->translate('since %s', 'time'),
+                            $this->translate('for %s', 'timespan')
+                        )) ?>
                 </div>
             <?php else: ?>
                 <div class="backend-not-running">
