@@ -163,9 +163,6 @@ class DateTimeRenderer
     public function __toString()
     {
         switch ($this->type) {
-            case self::TYPE_DATETIME:
-                $format = $this->dateTime->format('d.m.Y - H:i:s');
-                break;
             case self::TYPE_TIME:
                 $format = $this->dateTime->format('H:i:s');
                 break;
