@@ -11,6 +11,11 @@ $this->addHelperFunction('format', function () {
     return Format::getInstance();
 });
 
+/* TODO:
+ * drop the following 4 helpers
+ * after replacing all their usages w/ dateTimeRenderer
+ */
+
 $this->addHelperFunction('timeSince', function ($timestamp) {
     return sprintf(
         '<span class="timesince" title="%s">%s</span>',
