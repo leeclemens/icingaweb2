@@ -68,25 +68,12 @@ class DateTimeRenderer
      */
     protected function detectType()
     {
-        if ($this->now->format('Y-m-d') !== $this->dateTime->format('Y-m-d')) {
+        if ($this->now->format('Y-m-d') === $this->dateTime->format('Y-m-d')) {
+            $this->type = (abs(
+                $this->now->getTimestamp() - $this->dateTime->getTimestamp()
+            ) < self::HOUR) ? self::TYPE_TIMESPAN : self::TYPE_TIME;
+        } else {
             $this->type = self::TYPE_DATETIME;
-            return;
-        }
-
-        if (
-            $this->now->format('Y-m-d') === $this->dateTime->format('Y-m-d') &&
-            (abs($this->now->getTimestamp() - $this->dateTime->getTimestamp()) >= self::HOUR)
-        ) {
-            $this->type = self::TYPE_TIME;
-            return;
-        }
-
-        if (
-            $this->now->format('Y-m-d') === $this->dateTime->format('Y-m-d') &&
-            (abs($this->now->getTimestamp() - $this->dateTime->getTimestamp()) < self::HOUR)
-        ) {
-            $this->type = self::TYPE_TIMESPAN;
-            return;
         }
     }
 
