@@ -6,11 +6,19 @@
     <?php if ((bool) $programStatus->notifications_enabled === false): ?>
     <div>
         <?= $this->translate('Host and service notifications are already disabled.') ?>
-        <?php if ($this->programStatus->disable_notif_expire_time): ?>
-            <?= sprintf(
-                $this->translate('Notifications will be re-enabled in <strong>%s</strong>.'),
-                $this->timeUntil($this->programStatus->disable_notif_expire_time)); ?>
-        <?php endif; ?>
+        <?php if ($this->programStatus->disable_notif_expire_time) {
+            printf(
+                $this->translate('Notifications will be re-enabled %s.'),
+                $this->getView()->dateTimeRenderer(
+                    $this->programStatus->disable_notif_expire_time,
+                    true
+                )->render(
+                    $this->translate('on <strong>%s</strong>', 'datetime'),
+                    $this->translate('at <strong>%s</strong>', 'time'),
+                    $this->translate('in <strong>%s</strong>', 'timespan')
+                )
+            );
+        } ?>
     </div>
     <?php else: ?>
     <?= $form ?>
