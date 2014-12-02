@@ -53,3 +53,31 @@ $this->addHelperFunction('prefixedTimeUntil', function ($timestamp, $ucfirst = f
 $this->addHelperFunction('dateTimeRenderer', function ($dateTimeOrTimestamp, $future = false) {
     return DateTimeRenderer::create($dateTimeOrTimestamp, $future);
 });
+
+$this->addHelperFunction('timePointFuture', function ($timestamp) {
+    return sprintf(
+        '<span class="timeuntil">%s</span>',
+        DateTimeRenderer::timePointFuture($timestamp)
+    );
+});
+
+$this->addHelperFunction('timePointPast', function ($timestamp) {
+    return sprintf(
+        '<span class="timesince">%s</span>',
+        DateTimeRenderer::timePointPast($timestamp)
+    );
+});
+
+$this->addHelperFunction('timeSpanFuture', function ($timestamp) {
+    return sprintf(
+        '<span class="timeuntil">%s</span>',
+        DateTimeRenderer::timeSpanFuture($timestamp)
+    );
+});
+
+$this->addHelperFunction('timeSpanPast', function ($timestamp) {
+    return sprintf(
+        '<span class="timesince">%s</span>',
+        DateTimeRenderer::timeSpanPast($timestamp)
+    );
+});
