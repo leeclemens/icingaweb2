@@ -46,11 +46,7 @@
         <td class="state change <?= $state . $combinations[2] ?>">
           <strong><?= $combinations[3] ?></strong>
           <br>
-          <?= $this->dateTimeRenderer($time)->render(
-              $this->translate('since %s', 'datetime'),
-              $this->translate('since %s', 'time'),
-              $this->translate('for %s', 'timespan')
-          ) ?>
+          <?= $this->prefixedTimeSince($time) ?>
         </td>
                <?php
                break;
