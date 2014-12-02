@@ -117,10 +117,10 @@ function contactsLink($match, $view) {
       }
     ?>
       <tr class="state <?= $stateClass; ?>">
-        <td class="state">
+        <td class="state" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $this->escape($title), date('Y-m-d H:i:s', $event->timestamp)); ?>">
           <strong><?= $this->escape($title); ?></strong>
           <br>
-          <?= date('d.m. H:i', $event->timestamp); ?>
+            <?= date('d.m. H:i', $event->timestamp); ?>
         </td>
         <td><?php
 

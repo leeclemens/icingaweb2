@@ -92,7 +92,7 @@
         }
       ?>
       <tr class="state <?= $stateName; ?>">
-        <td class="state">
+        <td class="state" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $this->escape($title), date('Y-m-d H:i:s', $event->timestamp)); ?>">
           <strong><?= $this->escape($title); ?></strong>
           <br>
           <?= date('d.m. H:i', $event->timestamp); ?>
