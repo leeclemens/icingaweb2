@@ -105,4 +105,52 @@ class DateTimeRenderer
         }
         return sprintf($grammar, implode(' ', array_reverse($diffParts)));
     }
+
+    /**
+     * Creates a new DateTimeRenderer and return it, rendered
+     *
+     * @param int $dateTime
+     *
+     * @return string
+     */
+    public static function timePointFuture($dateTime)
+    {
+        return static::create($dateTime)->render(true, true);
+    }
+
+    /**
+     * Creates a new DateTimeRenderer and return it, rendered
+     *
+     * @param int $dateTime
+     *
+     * @return string
+     */
+    public static function timePointPast($dateTime)
+    {
+        return static::create($dateTime)->render(false, true);
+    }
+
+    /**
+     * Creates a new DateTimeRenderer and return it, rendered
+     *
+     * @param int $dateTime
+     *
+     * @return string
+     */
+    public static function timeSpanFuture($dateTime)
+    {
+        return static::create($dateTime)->render(true, false);
+    }
+
+    /**
+     * Creates a new DateTimeRenderer and return it, rendered
+     *
+     * @param int $dateTime
+     *
+     * @return string
+     */
+    public static function timeSpanPast($dateTime)
+    {
+        return static::create($dateTime)->render(false, false);
+    }
 }
