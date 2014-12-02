@@ -46,7 +46,7 @@
           <br>
           <strong><?= $this->escape($title); ?></strong>
           <br>
-          <?= $this->prefixedTimeSince($comment->timestamp); ?>
+          <?= $this->timePointPast($comment->timestamp); ?>
         </td>
         <td>
         <?php if ($comment->objecttype === 'service'): ?>

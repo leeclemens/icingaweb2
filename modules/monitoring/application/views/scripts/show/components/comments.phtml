@@ -41,7 +41,7 @@ foreach ($object->comments as $comment) {
     ?>
 
     <tr>
-        <th><?= $this->escape($comment->author) ?> (<?= $this->timeSince($comment->timestamp) ?>)</th>
+        <th><?= $this->escape($comment->author) ?> (<?= $this->timePointPast($comment->timestamp) ?>)</th>
         <td>
             <table>
                 <tr>
