@@ -47,12 +47,7 @@ foreach ($notifications as $notification):
 ?>
   <tr class="state <?= $stateName ?>">
     <td class="state">
-        <?= $this->dateTimeRenderer($notification->notification_start_time)->render(
-                $this->translate('on %s', 'datetime'),
-                $this->translate('at %s', 'time'),
-                $this->translate('%s ago', 'timespan')
-            );
-        ?>
+        <?= $this->timePointPast($notification->notification_start_time) ?>
     </td>
     <td style="font-size: 0.8em">
       <?php if ($isService): ?>
