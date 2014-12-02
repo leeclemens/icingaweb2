@@ -67,15 +67,8 @@ class ToggleInstanceFeaturesCommandForm extends CommandForm
             );
         } elseif ($this->status->disable_notif_expire_time) {
             $notificationDescription = sprintf(
-                mt('monitoring', 'Notifications will be re-enabled %s'),
-                $this->getView()->dateTimeRenderer(
-                    $this->status->disable_notif_expire_time,
-                    true
-                )->render(
-                    mt('monitoring', 'on <strong>%s</strong>', 'datetime'),
-                    mt('monitoring', 'at <strong>%s</strong>', 'time'),
-                    mt('monitoring', 'in <strong>%s</strong>', 'timespan')
-                )
+                mt('monitoring', 'Notifications will be re-enabled <strong>%s</strong>'),
+                $this->getView()->timePointFuture($this->status->disable_notif_expire_time)
             );
         } else {
             $notificationDescription = null;
