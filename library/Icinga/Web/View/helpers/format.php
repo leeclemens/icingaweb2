@@ -6,6 +6,7 @@ namespace Icinga\Web\View;
 
 use Icinga\Web\Url;
 use Icinga\Util\Format;
+use Icinga\Util\DateTimeRenderer;
 
 $this->addHelperFunction('format', function () {
     return Format::getInstance();

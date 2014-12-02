@@ -6,7 +6,7 @@ namespace Icinga\Module\Monitoring\Clicommands;
 
 use Icinga\Module\Monitoring\Backend;
 use Icinga\Module\Monitoring\Cli\CliUtils;
-use Icinga\Web\View\DateTimeRenderer;
+use Icinga\Util\DateTimeRenderer;
 use Icinga\Cli\Command;
 use Icinga\File\Csv;
 use Icinga\Module\Monitoring\Plugin\PerfdataSet;
