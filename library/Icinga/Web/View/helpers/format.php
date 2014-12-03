@@ -30,9 +30,9 @@ $this->addHelperFunction('timeAgo', function ($timestamp) {
     );
 });
 
-$this->addHelperFunction('timeSpanPast', function ($timestamp) {
+$this->addHelperFunction('timeSince', function ($timestamp) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timeSpanPast();
+    $s = $dtr->timeSince();
     return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timesince">%s</span>',
         $s

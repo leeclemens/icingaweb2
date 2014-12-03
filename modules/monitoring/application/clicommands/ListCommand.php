@@ -299,7 +299,7 @@ class ListCommand extends Command
                 $leaf,
                 $screen->underline($row->service_description),
                 $screen->colorize($utils->objectStateFlags('service', $row) . $perf, 'lightblue'),
-                DateTimeRenderer::create($row->service_last_state_change)->timeSpanPast()
+                DateTimeRenderer::create($row->service_last_state_change)->timeSince()
             );
             if ($this->isVerbose) {
                 $out .= $emptyLine . preg_replace(

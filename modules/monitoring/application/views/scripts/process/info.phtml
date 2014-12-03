@@ -58,7 +58,7 @@ $cp = $this->checkPerformance()->create($this->checkperformance);
                         $this->translate('%s has been up and running with PID %d %s'),
                         $this->backendName,
                         $this->programStatus->process_id,
-                        $this->timeSpanPast($this->programStatus->program_start_time)) ?>
+                        $this->timeSince($this->programStatus->program_start_time)) ?>
                 </div>
             <?php else: ?>
                 <div class="backend-not-running">

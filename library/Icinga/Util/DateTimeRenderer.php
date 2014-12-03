@@ -159,7 +159,7 @@ class DateTimeRenderer
      *
      * @return string
      */
-    public function timeSpanPast()
+    public function timeSince()
     {
         return $this->render(false, false);
     }

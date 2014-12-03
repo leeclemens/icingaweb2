@@ -10,7 +10,7 @@ use Icinga\Module\Monitoring\Object\Service;
   <tr class="state <?= $this->monitoringState($object, 'host') ?><?= $object->host_handled ? ' handled' : '' ?>">
     <td class="state"<?= $showService ? '' : ' rowspan="2"' ?>>
       <strong><?= $this->translate($this->util()->getHostStateName($object->host_state)) ?></strong><br />
-      <?= $this->timeSpanPast($object->host_last_state_change) ?>
+      <?= $this->timeSince($object->host_last_state_change) ?>
     </td>
     <td><b><?= $this->escape($object->host_name) ?></b><?php
  if ($object->host_address && $object->host_address !== $object->host_name): ?>
@@ -22,7 +22,7 @@ use Icinga\Module\Monitoring\Object\Service;
   <tr class="state <?= $this->monitoringState($object, 'service') ?><?= $object->service_handled ? ' handled' : '' ?>">
     <td class="state" title="<?= sprintf($this->translate('%s since %s', 'datetime.title'), strtoupper(Service::getStateText($object->service_state, true)), date('Y-m-d H:i:s', $object->service_last_state_change)); ?>">
       <strong><?= $this->translate($this->util()->getServiceStateName($object->service_state)) ?></strong><br />
-      <?= $this->timeSpanPast($object->service_last_state_change) ?>
+      <?= $this->timeSince($object->service_last_state_change) ?>
     </td>
     <td><b><?= $this->translate('Service') ?>: <?= $this->escape($object->service_description) ?></b>
 
