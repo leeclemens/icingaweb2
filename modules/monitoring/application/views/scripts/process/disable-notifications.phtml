@@ -9,7 +9,7 @@
         <?php if ($this->programStatus->disable_notif_expire_time) {
             printf(
                 $this->translate('Notifications will be re-enabled <strong>%s</strong>.'),
-                $this->timePointFuture($this->programStatus->disable_notif_expire_time)
+                $this->timeUntil($this->programStatus->disable_notif_expire_time)
             );
         } ?>
     </div>

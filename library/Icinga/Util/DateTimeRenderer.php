@@ -139,7 +139,7 @@ class DateTimeRenderer
      *
      * @return string
      */
-    public function timePointFuture()
+    public function timeUntil()
     {
         return $this->render(true, true);
     }

@@ -12,9 +12,9 @@ $this->addHelperFunction('format', function () {
     return Format::getInstance();
 });
 
-$this->addHelperFunction('timePointFuture', function ($timestamp) {
+$this->addHelperFunction('timeUntil', function ($timestamp) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timePointFuture();
+    $s = $dtr->timeUntil();
     return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timeuntil">%s</span>',
         $s

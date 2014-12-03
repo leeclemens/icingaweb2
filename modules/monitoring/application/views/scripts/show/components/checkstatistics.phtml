@@ -33,7 +33,7 @@ if ($object->getType() === $object::TYPE_HOST) {
       <a href="<?= $reschedule ?>">
           <?= $this->icon('reschedule') ?> <?= $this->translate('Reschedule') ?>
       </a>
-      <?= $this->timePointFuture($object->next_check) ?>
+      <?= $this->timeUntil($object->next_check) ?>
   </td>
 </tr>
 <tr>

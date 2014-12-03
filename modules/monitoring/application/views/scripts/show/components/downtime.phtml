@@ -41,7 +41,7 @@ foreach ($object->downtimes as $downtime):
     } else {
         $state = (
             ((bool) $downtime->is_fixed) ? 'scheduled ' : 'scheduled flexible '
-        ) . $this->timePointFuture($downtime->start);
+        ) . $this->timeUntil($downtime->start);
     }
 
     ?>
