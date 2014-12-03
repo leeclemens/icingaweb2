@@ -149,7 +149,7 @@ class DateTimeRenderer
      *
      * @return string
      */
-    public function timePointPast()
+    public function timeAgo()
     {
         return $this->render(false, true);
     }

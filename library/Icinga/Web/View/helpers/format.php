@@ -21,9 +21,9 @@ $this->addHelperFunction('timeUntil', function ($timestamp) {
     );
 });
 
-$this->addHelperFunction('timePointPast', function ($timestamp) {
+$this->addHelperFunction('timeAgo', function ($timestamp) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timePointPast();
+    $s = $dtr->timeAgo();
     return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timesince">%s</span>',
         $s

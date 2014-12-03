@@ -24,7 +24,7 @@ if ($object->getType() === $object::TYPE_HOST) {
     <th><?= $this->translate('Last check') ?></th>
     <td data-base-target="_self">
         <?= $checkNowForm ?>
-        <?= $this->timePointPast($object->last_check) ?>
+        <?= $this->timeAgo($object->last_check) ?>
     </td>
 </tr>
 <tr>
