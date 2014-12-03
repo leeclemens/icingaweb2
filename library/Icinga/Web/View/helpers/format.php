@@ -13,29 +13,37 @@ $this->addHelperFunction('format', function () {
 });
 
 $this->addHelperFunction('timePointFuture', function ($timestamp) {
-    return sprintf(
+    $dtr = new DateTimeRenderer($timestamp);
+    $s = $dtr->timePointFuture();
+    return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timeuntil">%s</span>',
-        DateTimeRenderer::timePointFuture($timestamp)
+        $s
     );
 });
 
 $this->addHelperFunction('timePointPast', function ($timestamp) {
-    return sprintf(
+    $dtr = new DateTimeRenderer($timestamp);
+    $s = $dtr->timePointPast();
+    return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timesince">%s</span>',
-        DateTimeRenderer::timePointPast($timestamp)
+        $s
     );
 });
 
 $this->addHelperFunction('timeSpanFuture', function ($timestamp) {
-    return sprintf(
+    $dtr = new DateTimeRenderer($timestamp);
+    $s = $dtr->timeSpanFuture();
+    return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timeuntil">%s</span>',
-        DateTimeRenderer::timeSpanFuture($timestamp)
+        $s
     );
 });
 
 $this->addHelperFunction('timeSpanPast', function ($timestamp) {
-    return sprintf(
+    $dtr = new DateTimeRenderer($timestamp);
+    $s = $dtr->timeSpanPast();
+    return $dtr->isAbsolute() ? $s : sprintf(
         '<span class="timesince">%s</span>',
-        DateTimeRenderer::timeSpanPast($timestamp)
+        $s
     );
 });
