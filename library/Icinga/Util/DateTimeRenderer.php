@@ -81,7 +81,7 @@ class DateTimeRenderer
      *
      * @return string
      */
-    public function render($future = false, $timePoint = false)
+    protected function render($future = false, $timePoint = false)
     {
         if ($this->absolute) {
             if ($timePoint) {
@@ -135,50 +135,42 @@ class DateTimeRenderer
     }
 
     /**
-     * Creates a new DateTimeRenderer and return it, rendered
-     *
-     * @param int $dateTime
+     * Human-readable shortcut for render()
      *
      * @return string
      */
-    public static function timePointFuture($dateTime)
+    public function timePointFuture()
     {
-        return static::create($dateTime)->render(true, true);
+        return $this->render(true, true);
     }
 
     /**
-     * Creates a new DateTimeRenderer and return it, rendered
-     *
-     * @param int $dateTime
+     * Human-readable shortcut for render()
      *
      * @return string
      */
-    public static function timePointPast($dateTime)
+    public function timePointPast()
     {
-        return static::create($dateTime)->render(false, true);
+        return $this->render(false, true);
     }
 
     /**
-     * Creates a new DateTimeRenderer and return it, rendered
-     *
-     * @param int $dateTime
+     * Human-readable shortcut for render()
      *
      * @return string
      */
-    public static function timeSpanFuture($dateTime)
+    public function timeSpanFuture()
     {
-        return static::create($dateTime)->render(true, false);
+        return $this->render(true, false);
     }
 
     /**
-     * Creates a new DateTimeRenderer and return it, rendered
-     *
-     * @param int $dateTime
+     * Human-readable shortcut for render()
      *
      * @return string
      */
-    public static function timeSpanPast($dateTime)
+    public function timeSpanPast()
     {
-        return static::create($dateTime)->render(false, false);
+        return $this->render(false, false);
     }
 }
