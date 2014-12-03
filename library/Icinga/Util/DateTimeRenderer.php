@@ -23,6 +23,20 @@ class DateTimeRenderer
     protected $dateTime;
 
     /**
+     * Difference between given and current timestamp
+     *
+     * @var int
+     */
+    protected $diff;
+
+    /**
+     * Whether time is absolute
+     *
+     * @var bool
+     */
+    protected $absolute;
+
+    /**
      * @param int $dateTime     timestamp accepted by date_timestamp_set()
      */
     public function __construct($dateTime)
@@ -30,6 +44,9 @@ class DateTimeRenderer
         $this->now = time();
         $this->dateTime = date_timestamp_get(
             date_timestamp_set(new DateTime(), $dateTime)
+        );
+        $this->absolute = 21600 < (
+            $this->diff = abs($this->now - $this->dateTime)
         );
     }
 
@@ -46,6 +63,16 @@ class DateTimeRenderer
     }
 
     /**
+     * Check whether time is absolute
+     *
+     * @return bool
+     */
+    public function isAbsolute()
+    {
+        return $this->absolute;
+    }
+
+    /**
      * Render given timestamp (or relative timespan)
      *
      * @param bool $future          Future or past?
@@ -56,19 +83,7 @@ class DateTimeRenderer
      */
     public function render($future = false, $timePoint = false)
     {
-        $diff = abs($this->now - $this->dateTime);
-        $diffParts = array();
-        if ($diff < 60) {
-            $diffParts['s'] = $diff;
-        } elseif ($diff < 3600) {
-            $diffParts['s'] = $diff % 60;
-            $diffParts['i'] = (int) ($diff / 60);
-        } elseif ($diff < 21600) {
-            $diffParts['s'] = $diff % 60;
-            $diff = (int) ($diff / 60);
-            $diffParts['i'] = $diff % 60;
-            $diffParts['h'] = (int) ($diff / 60);
-        } else {
+        if ($this->absolute) {
             if ($timePoint) {
                 $grammar = 'at %s';
             } else {
@@ -81,29 +96,42 @@ class DateTimeRenderer
                 ) ? 'H:i:s' : 'Y-m-d H:i:s',
                 $this->dateTime
             ));
-        }
-        foreach ($diffParts as $key => $value) {
-            if (0 === $value) {
-                unset($diffParts[$key]);
-            }
-        }
-        if (0 === count($diffParts)) {
-            $diffParts['s'] = 0;
-        }
-        $formats = array(
-            's' => '%ss',
-            'i' => '%sm',
-            'h' => '%sh'
-        );
-        foreach ($diffParts as $key => $value) {
-            $diffParts[$key] = sprintf($formats[$key], $value);
-        }
-        if ($timePoint) {
-            $grammar = $future ? 'in %s' : '%s ago';
         } else {
-            $grammar = 'for %s';
+            $diffParts = array();
+            if ($this->diff < 60) {
+                $diffParts['s'] = $this->diff;
+            } elseif ($this->diff < 3600) {
+                $diffParts['s'] = $this->diff % 60;
+                $diffParts['i'] = (int) ($this->diff / 60);
+            } else {
+                $diffParts['s'] = $this->diff % 60;
+                $diff = (int) ($this->diff / 60);
+                $diffParts['i'] = $diff % 60;
+                $diffParts['h'] = (int) ($diff / 60);
+            }
+            foreach ($diffParts as $key => $value) {
+                if (0 === $value) {
+                    unset($diffParts[$key]);
+                }
+            }
+            if (0 === count($diffParts)) {
+                $diffParts['s'] = 0;
+            }
+            $formats = array(
+                's' => '%ss',
+                'i' => '%sm',
+                'h' => '%sh'
+            );
+            foreach ($diffParts as $key => $value) {
+                $diffParts[$key] = sprintf($formats[$key], $value);
+            }
+            if ($timePoint) {
+                $grammar = $future ? 'in %s' : '%s ago';
+            } else {
+                $grammar = 'for %s';
+            }
+            return sprintf($grammar, implode(' ', array_reverse($diffParts)));
         }
-        return sprintf($grammar, implode(' ', array_reverse($diffParts)));
     }
 
     /**
