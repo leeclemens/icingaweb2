@@ -32,33 +32,41 @@ use Icinga\Module\Monitoring\Object\Service;
       } else {
           $stateName = Host::getStateText($downtime->host_state, true);
       }
+      $now = time();
       if ($downtime->is_flexible == 1) {
-          if ((time() >= $downtime->start && time() <= $downtime->scheduled_end) && $downtime->is_in_effect == 0) {
+          if ($downtime->scheduled_start <= $now && $now <= $downtime->scheduled_end) {
               $stateTitle = $this->translate('Flexible Downtime Expires');
-              $downtimeDate = $downtime->scheduled_end;
+              $downtimeDate = (int) (($downtime->is_in_effect == 1)
+                  ? $downtime->end
+                  : $downtime->scheduled_end
+              );
+              $downtimeText = $this->timePointFuture($downtimeDate);
+              $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
           } else {
-              $stateTitle = $downtime->is_in_effect ? $this->translate('Flexible Downtime Expires') : $this->translate('Flexible Downtime Starts');
-              $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
+              $stateTitle = $this->translate('Flexible Downtime Scheduled');
+              $downtimeText = $downtimeDate = sprintf(
+                  $this->translate('between %s and %s'),
+                  date('Y-m-d H:i:s', $downtime->scheduled_start),
+                  date('Y-m-d H:i:s', $downtime->scheduled_end)
+              );
           }
+      } elseif ($downtime->start <= $now && $now <= $downtime->end) {
+          $stateTitle = $this->translate('Downtime Expires');
+          $downtimeDate = (int) $downtime->end;
+          $downtimeText = $this->timePointFuture($downtimeDate);
+          $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
       } else {
-          if ((time() >= $downtime->start && time() <= $downtime->end) && $downtime->is_in_effect == 0) {
-              $stateTitle = $this->translate('Downtime Expires');
-              $downtimeDate = $downtime->end;
-          } else {
-              $stateTitle = $downtime->is_in_effect ? $this->translate('Downtime Expires') : $this->translate('Downtime Starts');
-              $downtimeDate = $downtime->is_in_effect ? $downtime->end : $downtime->start;
-          }
+          $stateTitle = $this->translate('Downtime Starts');
+          $downtimeDate = (int) $downtime->start;
+          $downtimeText = $this->timePointFuture($downtimeDate);
+          $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
       }
     ?>
-      <tr class="state <?= $stateName; ?><?= $downtime->is_in_effect ? ' handled' : ''; ?>">
-        <td class="state" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $stateTitle, date('Y-m-d H:i:s', $downtimeDate)); ?>">
+      <tr class="state <?= $stateName . ($downtime->is_in_effect ? ' handled' : '') ?>">
+        <td class="state" title="<?= sprintf($this->translate('%s %s'), $stateTitle, $downtimeDate) ?>">
           <strong><?= $stateTitle ?></strong>
           <br>
-            <?= $this->timePointFuture(
-                $downtime->is_in_effect ?
-                $downtime->end :
-                $downtime->start
-            ) ?>
+            <?= $downtimeText ?>
         </td>
         <td>
         <?php if (isset($downtime->service)): ?>
