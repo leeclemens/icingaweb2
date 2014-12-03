@@ -159,16 +159,6 @@ class DateTimeRenderer
      *
      * @return string
      */
-    public function timeSpanFuture()
-    {
-        return $this->render(true, false);
-    }
-
-    /**
-     * Human-readable shortcut for render()
-     *
-     * @return string
-     */
     public function timeSpanPast()
     {
         return $this->render(false, false);
