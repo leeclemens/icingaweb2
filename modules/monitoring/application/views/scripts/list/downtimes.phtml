@@ -35,38 +35,52 @@ use Icinga\Module\Monitoring\Object\Service;
       $now = time();
       if ($downtime->is_flexible == 1) {
           if ($downtime->scheduled_start <= $now && $now <= $downtime->scheduled_end) {
-              $stateTitle = $this->translate('Flexible Downtime Expires');
+              $stateHeader = $this->translate('Flexible Downtime Expires');
               $downtimeDate = (int) (($downtime->is_in_effect == 1)
                   ? $downtime->end
                   : $downtime->scheduled_end
               );
-              $downtimeText = $this->timeUntil($downtimeDate);
-              $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
+              $stateTitle = $this->timeAt($downtimeDate, array(
+                  'abs' => $this->translate('Flexible Downtime expires at %s')
+              ), true);
+              $downtimeDate = $this->timeUntil($downtimeDate);
           } else {
-              $stateTitle = $this->translate('Flexible Downtime Scheduled');
-              $downtimeText = $downtimeDate = sprintf(
+              $stateHeader = $this->translate('Flexible Downtime Scheduled');
+              $start = $this->formatDateTime($downtime->scheduled_start);
+              $end = $this->formatDateTime($downtime->scheduled_end);
+              $stateTitle = sprintf(
+                  $this->translate('Flexible Downtime scheduled between %s and %s'),
+                  $start,
+                  $end
+              );
+              $downtimeDate = sprintf(
                   $this->translate('between %s and %s'),
-                  $this->formatDateTime($downtime->scheduled_start),
-                  $this->formatDateTime($downtime->scheduled_end)
+                  $start,
+                  $end
               );
           }
-      } elseif ($downtime->start <= $now && $now <= $downtime->end) {
-          $stateTitle = $this->translate('Downtime Expires');
-          $downtimeDate = (int) $downtime->end;
-          $downtimeText = $this->timeUntil($downtimeDate);
-          $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
       } else {
-          $stateTitle = $this->translate('Downtime Starts');
-          $downtimeDate = (int) $downtime->start;
-          $downtimeText = $this->timeUntil($downtimeDate);
-          $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
+          if ($downtime->start <= $now && $now <= $downtime->end) {
+              $stateHeader = $this->translate('Downtime Expires');
+              $downtimeDate = (int) $downtime->end;
+              $stateTitle = $this->timeAt($downtimeDate, array(
+                  'abs' => $this->translate('Downtime expires at %s')
+              ), true);
+          } else {
+              $stateHeader = $this->translate('Downtime Starts');
+              $downtimeDate = (int) $downtime->start;
+              $stateTitle = $this->timeAt($downtimeDate, array(
+                  'abs' => $this->translate('Downtime starts at %s')
+              ), true);
+          }
+          $downtimeDate = $this->timeUntil($downtimeDate);
       }
     ?>
       <tr class="state <?= $stateName . ($downtime->is_in_effect ? ' handled' : '') ?>">
-        <td class="state" title="<?= sprintf($this->translate('%s %s'), $stateTitle, $downtimeDate) ?>">
-          <strong><?= $stateTitle ?></strong>
+        <td class="state" title="<?= $stateTitle ?>">
+          <strong><?= $stateHeader ?></strong>
           <br>
-            <?= $downtimeText ?>
+            <?= $downtimeDate ?>
         </td>
         <td>
         <?php if (isset($downtime->service)): ?>
