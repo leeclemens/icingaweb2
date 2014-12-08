@@ -5,9 +5,14 @@
 namespace Icinga\Util;
 
 use DateTime;
+use Icinga\Exception\IcingaException;
 
 class DateTimeRenderer
 {
+    const FORMAT_DATE = 0;
+    const FORMAT_TIME = 1;
+    const FORMAT_FULL = 2;
+
     /**
      * The current timestamp
      *
@@ -162,5 +167,36 @@ class DateTimeRenderer
     public function timeSince()
     {
         return $this->render(false, false);
+    }
+
+    /**
+     * Format the given $timestamp according to the given $format
+     *
+     * @param int $format           valid values:
+     *                              DateTimeRenderer::FORMAT_DATE
+     *                              DateTimeRenderer::FORMAT_TIME
+     *                              DateTimeRenderer::FORMAT_FULL
+     * @param int $timestamp
+     *
+     * @return string
+     *
+     * @throws IcingaException      in case of an invalid value for $format
+     */
+    public static function format(int $format, int $timestamp = time())
+    {
+        switch ($format) {
+            case static::FORMAT_DATE:
+                $format = 'Y-m-d';
+                break;
+            case static::FORMAT_TIME:
+                $format = 'H:i:s';
+                break;
+            case static::FORMAT_FULL:
+                $format = 'Y-m-d H:i:s';
+                break;
+            default:
+                throw new IcingaException('Invalid value `%s\' for $format', $format);
+        }
+        return date($format, $timestamp);
     }
 }
