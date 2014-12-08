@@ -11,7 +11,7 @@ class DateTimeRenderer
 {
     const FORMAT_DATE = 0;
     const FORMAT_TIME = 1;
-    const FORMAT_FULL = 2;
+    const FORMAT_DATETIME = 2;
 
     /**
      * The current timestamp
@@ -175,7 +175,7 @@ class DateTimeRenderer
      * @param int $format           valid values:
      *                              DateTimeRenderer::FORMAT_DATE
      *                              DateTimeRenderer::FORMAT_TIME
-     *                              DateTimeRenderer::FORMAT_FULL
+     *                              DateTimeRenderer::FORMAT_DATETIME
      * @param int $timestamp
      *
      * @return string
@@ -191,7 +191,7 @@ class DateTimeRenderer
             case static::FORMAT_TIME:
                 $format = 'H:i:s';
                 break;
-            case static::FORMAT_FULL:
+            case static::FORMAT_DATETIME:
                 $format = 'Y-m-d H:i:s';
                 break;
             default:
