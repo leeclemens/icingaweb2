@@ -94,11 +94,13 @@ class DateTimeRenderer
             } else {
                 $grammar = $future ? 'until %s' : 'since %s';
             }
-            return sprintf($grammar, date(
+            return sprintf($grammar, self::format(
                 (
                     date('Y-m-d', $this->now) ===
                     date('Y-m-d', $this->dateTime)
-                ) ? 'H:i:s' : 'Y-m-d H:i:s',
+                )
+                ? self::FORMAT_TIME
+                : self::FORMAT_DATETIME,
                 $this->dateTime
             ));
         } else {
