@@ -20,7 +20,11 @@ use Icinga\Module\Monitoring\Object\Service;
   </tr>
 <?php if ($showService): ?>
   <tr class="state <?= $this->monitoringState($object, 'service') ?><?= $object->service_handled ? ' handled' : '' ?>">
-    <td class="state" title="<?= sprintf($this->translate('%s since %s', 'datetime.title'), strtoupper(Service::getStateText($object->service_state, true)), date('Y-m-d H:i:s', $object->service_last_state_change)); ?>">
+    <td class="state" title="<?= sprintf(
+      $this->translate('%s %s', 'datetime.title'),
+      strtoupper(Service::getStateText($object->service_state, true)),
+      $this->timeSince($object->service_last_state_change)
+    ) ?>">
       <strong><?= $this->translate($this->util()->getServiceStateName($object->service_state)) ?></strong><br />
       <?= $this->timeSince($object->service_last_state_change) ?>
     </td>

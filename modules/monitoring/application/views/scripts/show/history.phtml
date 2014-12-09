@@ -117,7 +117,11 @@ function contactsLink($match, $view) {
       }
     ?>
       <tr class="state <?= $stateClass; ?>">
-        <td class="state" title="<?= sprintf($this->translate('%s at %s', 'datetime.title'), $this->escape($title), date('Y-m-d H:i:s', $event->timestamp)); ?>">
+        <td class="state" title="<?= sprintf(
+          $this->translate('%s %s', 'datetime.title'),
+          $this->escape($title),
+          $this->timeAt($event->timestamp)
+        ) ?>">
           <strong><?= $this->escape($title); ?></strong>
           <br>
             <?= date('d.m. H:i', $event->timestamp); ?>
