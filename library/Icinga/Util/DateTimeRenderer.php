@@ -81,18 +81,21 @@ class DateTimeRenderer
      * @param bool $future          Future or past?
      * @param bool $timePoint       Did an event (just) happen once
      *                              or is a state ongoing?
+     * @param array $formatStr      printf-conform strings (absolute/relative) to insert date/time in
+     *                              array('abs' => 'at %s', 'rel' => '%s ago')
      *
      * @return string
      */
-    protected function render($future = false, $timePoint = false)
+    protected function render($future = false, $timePoint = false, $formatStr = array())
     {
+        $formatStr = $formatStr[$this->absolute ? 'abs' : 'rel'] ?: null;
         if ($this->absolute) {
             if ($timePoint) {
                 $grammar = t('at %s', 'time');
             } else {
                 $grammar = $future ? t('until %s', 'time') : t('since %s', 'time');
             }
-            return sprintf($grammar, self::format(
+            return sprintf($formatStr ?: $grammar, self::format(
                 (
                     date('Y-m-d', $this->now) ===
                     date('Y-m-d', $this->dateTime)
@@ -135,7 +138,7 @@ class DateTimeRenderer
             } else {
                 $grammar = t('for %s', 'time');
             }
-            return sprintf($grammar, implode(' ', array_reverse($diffParts)));
+            return sprintf($formatStr ?: $grammar, implode(' ', array_reverse($diffParts)));
         }
     }
 
