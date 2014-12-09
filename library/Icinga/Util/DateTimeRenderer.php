@@ -140,7 +140,7 @@ class DateTimeRenderer
     }
 
     /**
-     * Human-readable shortcut for render()
+     * Render given timestamp as a timepoint in the future
      *
      * @return string
      */
@@ -150,7 +150,7 @@ class DateTimeRenderer
     }
 
     /**
-     * Human-readable shortcut for render()
+     * Render given timestamp as a timepoint in the past
      *
      * @return string
      */
@@ -160,7 +160,7 @@ class DateTimeRenderer
     }
 
     /**
-     * Human-readable shortcut for render()
+     * Render given timestamp as the begin of a timespan in the past
      *
      * @return string
      */
