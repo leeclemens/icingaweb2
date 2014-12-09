@@ -89,9 +89,9 @@ class DateTimeRenderer
     {
         if ($this->absolute) {
             if ($timePoint) {
-                $grammar = 'at %s';
+                $grammar = t('at %s', 'time');
             } else {
-                $grammar = $future ? 'until %s' : 'since %s';
+                $grammar = $future ? t('until %s', 'time') : t('since %s', 'time');
             }
             return sprintf($grammar, self::format(
                 (
@@ -132,9 +132,9 @@ class DateTimeRenderer
                 $diffParts[$key] = sprintf($formats[$key], $value);
             }
             if ($timePoint) {
-                $grammar = $future ? 'in %s' : '%s ago';
+                $grammar = $future ? t('in %s', 'time') : t('%s ago', 'time');
             } else {
-                $grammar = 'for %s';
+                $grammar = t('for %s', 'time');
             }
             return sprintf($grammar, implode(' ', array_reverse($diffParts)));
         }
