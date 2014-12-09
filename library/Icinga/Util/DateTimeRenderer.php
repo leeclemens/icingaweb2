@@ -5,7 +5,6 @@
 namespace Icinga\Util;
 
 use DateTime;
-use Icinga\Exception\IcingaException;
 
 class DateTimeRenderer
 {
@@ -181,7 +180,7 @@ class DateTimeRenderer
      *
      * @return string
      *
-     * @throws IcingaException      in case of an invalid value for $format
+     * @throws UnexpectedValueException     in case of an invalid value for $format
      */
     public static function format(int $format, int $timestamp = time())
     {
@@ -196,7 +195,7 @@ class DateTimeRenderer
                 $format = 'Y-m-d H:i:s';
                 break;
             default:
-                throw new IcingaException('Invalid value `%s\' for $format', $format);
+                throw new UnexpectedValueException('Invalid value `' . $format . '\' for $format');
         }
         return date($format, $timestamp);
     }
