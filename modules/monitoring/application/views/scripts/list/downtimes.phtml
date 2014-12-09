@@ -41,25 +41,25 @@ use Icinga\Module\Monitoring\Object\Service;
                   : $downtime->scheduled_end
               );
               $downtimeText = $this->timeUntil($downtimeDate);
-              $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
+              $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
           } else {
               $stateTitle = $this->translate('Flexible Downtime Scheduled');
               $downtimeText = $downtimeDate = sprintf(
                   $this->translate('between %s and %s'),
-                  date('Y-m-d H:i:s', $downtime->scheduled_start),
-                  date('Y-m-d H:i:s', $downtime->scheduled_end)
+                  $this->formatDateTime($downtime->scheduled_start),
+                  $this->formatDateTime($downtime->scheduled_end)
               );
           }
       } elseif ($downtime->start <= $now && $now <= $downtime->end) {
           $stateTitle = $this->translate('Downtime Expires');
           $downtimeDate = (int) $downtime->end;
           $downtimeText = $this->timeUntil($downtimeDate);
-          $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
+          $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
       } else {
           $stateTitle = $this->translate('Downtime Starts');
           $downtimeDate = (int) $downtime->start;
           $downtimeText = $this->timeUntil($downtimeDate);
-          $downtimeDate = sprintf($this->translate('at %s'), date('Y-m-d H:i:s', $downtimeDate));
+          $downtimeDate = sprintf($this->translate('at %s'), $this->formatDateTime($downtimeDate));
       }
     ?>
       <tr class="state <?= $stateName . ($downtime->is_in_effect ? ' handled' : '') ?>">
