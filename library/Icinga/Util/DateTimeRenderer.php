@@ -145,31 +145,43 @@ class DateTimeRenderer
     /**
      * Render given timestamp as a timepoint in the future
      *
+     * @param array $formatStr      printf-conform strings (absolute/relative) to insert date/time in
+     *                              array('abs' => 'at %s', 'rel' => '%s ago')
+     * @param bool $forceAbs        Force output to be absolute?
+     *
      * @return string
      */
-    public function timeUntil()
+    public function timeUntil($formatStr = array(), $forceAbs = false)
     {
-        return $this->render(true, true);
+        return $this->render(true, true, $formatStr, $forceAbs);
     }
 
     /**
      * Render given timestamp as a timepoint in the past
      *
+     * @param array $formatStr      printf-conform strings (absolute/relative) to insert date/time in
+     *                              array('abs' => 'at %s', 'rel' => '%s ago')
+     * @param bool $forceAbs        Force output to be absolute?
+     *
      * @return string
      */
-    public function timeAgo()
+    public function timeAgo($formatStr = array(), $forceAbs = false)
     {
-        return $this->render(false, true);
+        return $this->render(false, true, $formatStr, $forceAbs);
     }
 
     /**
      * Render given timestamp as the begin of a timespan in the past
      *
+     * @param array $formatStr      printf-conform strings (absolute/relative) to insert date/time in
+     *                              array('abs' => 'at %s', 'rel' => '%s ago')
+     * @param bool $forceAbs        Force output to be absolute?
+     *
      * @return string
      */
-    public function timeSince()
+    public function timeSince($formatStr = array(), $forceAbs = false)
     {
-        return $this->render(false, false);
+        return $this->render(false, false, $formatStr, $forceAbs);
     }
 
     /**
