@@ -83,19 +83,19 @@ class DateTimeRenderer
      *                              or is a state ongoing?
      * @param array $formatStr      printf-conform strings (absolute/relative) to insert date/time in
      *                              array('abs' => 'at %s', 'rel' => '%s ago')
+     * @param bool $forceAbs        Force output to be absolute?
      *
      * @return string
      */
-    protected function render($future = false, $timePoint = false, $formatStr = array())
+    protected function render($future = false, $timePoint = false, $formatStr = array(), $forceAbs = false)
     {
-        $formatStr = $formatStr[$this->absolute ? 'abs' : 'rel'] ?: null;
-        if ($this->absolute) {
+        if ($forceAbs || $this->absolute) {
             if ($timePoint) {
                 $grammar = t('at %s', 'time');
             } else {
                 $grammar = $future ? t('until %s', 'time') : t('since %s', 'time');
             }
-            return sprintf($formatStr ?: $grammar, self::format(
+            return sprintf($formatStr['abs'] ?: $grammar, self::format(
                 (
                     date('Y-m-d', $this->now) ===
                     date('Y-m-d', $this->dateTime)
@@ -138,7 +138,7 @@ class DateTimeRenderer
             } else {
                 $grammar = t('for %s', 'time');
             }
-            return sprintf($formatStr ?: $grammar, implode(' ', array_reverse($diffParts)));
+            return sprintf($formatStr['rel'] ?: $grammar, implode(' ', array_reverse($diffParts)));
         }
     }
 
