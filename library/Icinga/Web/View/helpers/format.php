@@ -12,28 +12,28 @@ $this->addHelperFunction('format', function () {
     return Format::getInstance();
 });
 
-$this->addHelperFunction('timeUntil', function ($timestamp) {
+$this->addHelperFunction('timeUntil', function ($timestamp, $formatStr = array(), $forceAbs = false) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timeUntil();
-    return $dtr->isAbsolute() ? $s : sprintf(
+    $s = $dtr->timeUntil($formatStr, $forceAbs);
+    return ($forceAbs || $dtr->isAbsolute()) ? $s : sprintf(
         '<span class="timeuntil">%s</span>',
         $s
     );
 });
 
-$this->addHelperFunction('timeAgo', function ($timestamp) {
+$this->addHelperFunction('timeAgo', function ($timestamp, $formatStr = array(), $forceAbs = false) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timeAgo();
-    return $dtr->isAbsolute() ? $s : sprintf(
+    $s = $dtr->timeAgo($formatStr, $forceAbs);
+    return ($forceAbs || $dtr->isAbsolute()) ? $s : sprintf(
         '<span class="timesince">%s</span>',
         $s
     );
 });
 
-$this->addHelperFunction('timeSince', function ($timestamp) {
+$this->addHelperFunction('timeSince', function ($timestamp, $formatStr = array(), $forceAbs = false) {
     $dtr = new DateTimeRenderer($timestamp);
-    $s = $dtr->timeSince();
-    return $dtr->isAbsolute() ? $s : sprintf(
+    $s = $dtr->timeSince($formatStr, $forceAbs);
+    return ($forceAbs || $dtr->isAbsolute()) ? $s : sprintf(
         '<span class="timesince">%s</span>',
         $s
     );
