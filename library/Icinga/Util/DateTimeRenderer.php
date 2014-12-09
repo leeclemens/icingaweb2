@@ -42,14 +42,13 @@ class DateTimeRenderer
     protected $absolute;
 
     /**
-     * @param int $dateTime     timestamp accepted by date_timestamp_set()
+     * @param int $dateTime     timestamp accepted by DateTime::setTimestamp()
      */
     public function __construct($dateTime)
     {
         $this->now = time();
-        $this->dateTime = date_timestamp_get(
-            date_timestamp_set(new DateTime(), $dateTime)
-        );
+        $dt = new DateTime();
+        $this->dateTime = $dt->setTimestamp($dateTime)->getTimestamp();
         $this->absolute = 21600 < (
             $this->diff = abs($this->now - $this->dateTime)
         );
