@@ -38,3 +38,24 @@ $this->addHelperFunction('timeSince', function ($timestamp) {
         $s
     );
 });
+
+$this->addHelperFunction('formatDate', function ($timestamp) {
+    return DateTimeRenderer::format(
+        DateTimeRenderer::FORMAT_DATE,
+        $timestamp
+    );
+});
+
+$this->addHelperFunction('formatTime', function ($timestamp) {
+    return DateTimeRenderer::format(
+        DateTimeRenderer::FORMAT_TIME,
+        $timestamp
+    );
+});
+
+$this->addHelperFunction('formatDateTime', function ($timestamp) {
+    return DateTimeRenderer::format(
+        DateTimeRenderer::FORMAT_DATETIME,
+        $timestamp
+    );
+});
