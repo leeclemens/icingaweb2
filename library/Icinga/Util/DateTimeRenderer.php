@@ -89,6 +89,12 @@ class DateTimeRenderer
      */
     protected function render($future = false, $timePoint = false, $formatStr = array(), $forceAbs = false)
     {
+        foreach (array('abs', 'rel') as $key) {
+            if (false === array_key_exists($key, $formatStr)) {
+                $formatStr[$key] = null;
+            }
+        }
+
         if ($forceAbs || $this->absolute) {
             if ($timePoint) {
                 $grammar = t('at %s', 'time');
@@ -197,8 +203,10 @@ class DateTimeRenderer
      *
      * @throws UnexpectedValueException     in case of an invalid value for $format
      */
-    public static function format(int $format, int $timestamp = time())
+    public static function format($format, $timestamp = null)
     {
+        if ($timestamp === null)
+            $timestamp = time();
         switch ($format) {
             case static::FORMAT_DATE:
                 $format = 'Y-m-d';
