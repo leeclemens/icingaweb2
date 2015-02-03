@@ -37,7 +37,7 @@ class AuthenticationBackendConfigForm extends ConfigForm
     /**
      * Set the resource configuration to use
      *
-     * @param   Config      $resources      The resource configuration
+     * @param   Config      $resourceConfig      The resource configuration
      *
      * @return  self
      */
