@@ -228,6 +228,18 @@ class Monitoring_ListController extends Controller
 
         $this->applyRestriction('monitoring/services/filter', $query);
 
+        $this->view->handledSwitch = ToggleSwitch::create(array(
+            array(
+                array('service_handled' => 0),
+                $this->translate('Unhandled'),
+                array('title' => $this->translate('Toggle the display of unhandled services only.'))
+            ),
+            array(
+                array('service_handled' => 1),
+                $this->translate('Handled'),
+                array('title' => $this->translate('Toggle the display of handled services only.'))
+            )
+        ));
         $this->setupSortControl(array(
             'service_severity'      => $this->translate('Service Severity'),
             'service_state'         => $this->translate('Current Service State'),
