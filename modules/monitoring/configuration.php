@@ -98,31 +98,23 @@ $section = $this->menuSection($this->translate('Problems'), array(
     'icon'      => 'block',
     'priority'  => 20
 ));
-$section->add($this->translate('Unhandled Hosts'), array(
+$section->add($this->translate('Host Problems'), array(
     'renderer'  => 'UnhandledHostMenuItemRenderer',
-    'url'       => 'monitoring/list/hosts?host_problem=1&host_handled=0',
+    'url'       => 'monitoring/list/hosts?host_problem=1&host_handled=0&sort=host_severity&dir=desc',
     'priority'  => 30
 ));
-$section->add($this->translate('Unhandled Services'), array(
-    'renderer'  => 'UnhandledServiceMenuItemRenderer',
-    'url'       => 'monitoring/list/services?service_problem=1&service_handled=0&sort=service_severity',
-    'priority'  => 40
-));
-$section->add($this->translate('Host Problems'), array(
-    'url'       => 'monitoring/list/hosts?host_problem=1&sort=host_severity',
-    'priority'  => 50
-));
 $section->add($this->translate('Service Problems'), array(
-    'url'       => 'monitoring/list/services?service_problem=1&sort=service_severity&dir=desc',
-    'priority'  => 60
+    'renderer'  => 'UnhandledServiceMenuItemRenderer',
+    'url'       => 'monitoring/list/services?service_problem=1&service_handled=0&sort=service_severity&dir=desc',
+    'priority'  => 40
 ));
 $section->add($this->translate('Service Grid'), array(
     'url'       => 'monitoring/list/servicegrid?service_problem=1',
-    'priority'  => 70
+    'priority'  => 50
 ));
 $section->add($this->translate('Current Downtimes'), array(
     'url'       => 'monitoring/list/downtimes?downtime_is_in_effect=1',
-    'priority'  => 80
+    'priority'  => 60
 ));
 
 /*
