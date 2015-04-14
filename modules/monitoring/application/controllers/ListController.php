@@ -11,6 +11,7 @@ use Icinga\Web\Widget\Tabextension\OutputFormat;
 use Icinga\Web\Widget\Tabs;
 use Icinga\Data\Filter\Filter;
 use Icinga\Web\Widget;
+use Icinga\Web\Widget\ToggleSwitch;
 use Icinga\Module\Monitoring\Forms\StatehistoryForm;
 
 class Monitoring_ListController extends Controller
@@ -127,6 +128,18 @@ class Monitoring_ListController extends Controller
 
         $this->applyRestriction('monitoring/hosts/filter', $query);
 
+        $this->view->handledSwitch = ToggleSwitch::create(array(
+            array(
+                array('host_handled' => 0),
+                $this->translate('Unhandled'),
+                array('title' => $this->translate('Toggle the display of unhandled hosts only.'))
+            ),
+            array(
+                array('host_handled' => 1),
+                $this->translate('Handled'),
+                array('title' => $this->translate('Toggle the display of handled hosts only.'))
+            )
+        ));
         $this->setupSortControl(array(
             'host_severity'     => $this->translate('Severity'),
             'host_state'        => $this->translate('Current State'),
