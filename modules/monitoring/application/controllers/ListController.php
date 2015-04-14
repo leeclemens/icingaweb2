@@ -685,6 +685,23 @@ class Monitoring_ListController extends Controller
             'service_handled'
         ));
         $this->filterQuery($query);
+        $this->view->toggleSwitch = ToggleSwitch::create(array(
+            array(
+                array('service_problem' => 1),
+                $this->translate('Problems'),
+                array('title' => $this->translate('Toggle the display of problem services only'))
+            ),
+            array(
+                array('service_handled' => 0),
+                $this->translate('Unhandled'),
+                array('title' => $this->translate('Toggle the display of unhandled services only'))
+            ),
+            array(
+                array('service_handled' => 1),
+                $this->translate('Handled'),
+                array('title' => $this->translate('Toggle the display of handled services only'))
+            )
+        ));
         $this->setupSortControl(array(
             'host_name'           => $this->translate('Hostname'),
             'service_description' => $this->translate('Service description')
