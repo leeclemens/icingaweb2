@@ -208,3 +208,30 @@ table.benchmark {
   border: 1px solid lightgrey;
   background-color: #fbfcc5;
 }
+
+.toggle-switch {
+  float: right;
+
+  a {
+    margin-left: 0.2em;
+    padding: 0.2em;
+    color: #333;
+    text-decoration: none;
+    background-color: #f9f9f9;
+    border: 1px solid @colorPetrol;
+
+    &.active {
+      color: white;
+      font-weight: bold;
+      background-color: @colorPetrol;
+
+      &:hover {
+        color: #eee;
+      }
+    }
+
+    &.inactive:hover {
+      background-color: #eee;
+    }
+  }
+}
