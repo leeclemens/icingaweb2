@@ -314,6 +314,18 @@ class Monitoring_ListController extends Controller
 
         $this->filterQuery($query);
 
+        $this->view->effectivenessSwitch = ToggleSwitch::create(array(
+            array(
+                array('downtime_is_in_effect' => 1),
+                $this->translate('Effective'),
+                array('title' => $this->translate('Toggle the display of effective downtimes only.'))
+            ),
+            array(
+                array('downtime_is_in_effect' => 0),
+                $this->translate('Ineffective'),
+                array('title' => $this->translate('Toggle the display of ineffective downtimes only.'))
+            )
+        ));
         $this->setupSortControl(array(
             'downtime_is_in_effect'     => $this->translate('Is In Effect'),
             'host_display_name'         => $this->translate('Host'),

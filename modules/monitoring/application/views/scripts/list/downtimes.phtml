@@ -20,7 +20,7 @@ use Icinga\Module\Monitoring\Object\Service;
 <?php endif ?>
 
 <div class="content">
-<?= $this->filterEditor ?>
+<?= $this->filterEditor; ?><?= $effectivenessSwitch; ?>
 <?php if (count($downtimes) === 0): ?>
   <?= $this->translate('No active downtimes'); ?>
 </div>
