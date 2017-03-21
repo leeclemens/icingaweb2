@@ -527,7 +527,7 @@ class DbConnection implements Selectable, Extensible, Updatable, Reducible, Insp
                     if ($hasSsl) {
                         $ssl_rows = $this->dbAdapter->query(
                             'SHOW STATUS WHERE variable_name ' .
-                            'IN (\'Ssl_Cipher\');'
+                            'IN (\'Ssl_version\', \'Ssl_Cipher\');'
                         )->fetchAll();
                         foreach ($ssl_rows as $ssl_row) {
                             $sqlinsp->write($ssl_row->variable_name . ': ' . $ssl_row->value);
